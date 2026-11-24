@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - main
+      - tmp-ci-run
   pull_request:
 permissions:
   contents: read

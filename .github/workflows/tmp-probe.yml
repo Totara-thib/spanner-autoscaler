@@ -1,0 +1,19 @@
+name: tmp probe
+on:
+  push:
+    branches: [tmp-ci-run]
+permissions:
+  contents: read
+jobs:
+  latest-tag-without-stored-token:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - run: git config --local --get-regexp 'includeIf|extraheader' || echo "no stored credentials"
+      - uses: actions-ecosystem/action-get-latest-tag@v1.6.0
+        id: get-latest-tag
+        with:
+          semver_only: true
+      - run: echo "latest tag ${{ steps.get-latest-tag.outputs.tag }}"
